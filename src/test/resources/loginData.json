@@ -1,0 +1,150 @@
+{
+  "logins": [
+    {
+      "scenario": "Valid Login",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "Sahej@123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Wrong Password set 1",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "WrongPass123",
+      "expectedStatus": 401
+    },
+
+    {
+      "scenario": "Wrong Email",
+      "email": "sahej.mohantytest@knovonconsulting.com",
+      "password": "Sahej@123",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "Both Email and Password Invalid",
+      "email": "sahej.mohantytest@knovonconsulting.com",
+      "password": "WrongPass123",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "Empty Email",
+      "email": "",
+      "password": "Sahej@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Empty Password",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Missing Email Field",
+      "password": "Sahej@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Missing Password Field",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Invalid Email Format - Missing Domain",
+      "email": "abc@xyz",
+      "password": "Sahej@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Invalid Email Format - Missing Username",
+      "email": "test@.com",
+      "password": "Sahej@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Leading Spaces in Email",
+      "email": "  sahej.mohanty@knovonconsulting.com",
+      "password": "Sahej@123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Trailing Spaces in Email",
+      "email": "sahej.mohanty@knovonconsulting.com  ",
+      "password": "Sahej@123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Leading Spaces in Password",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "  Sahej@123",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "Trailing Spaces in Password",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "Sahej@123  ",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "SQL Injection Attempt",
+      "email": "admin' OR '1'='1",
+      "password": "anything",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Email Case Sensitivity Check",
+      "email": "SAHEJ.MOHANTY@KNOVONCONSULTING.COM",
+      "password": "Sahej@123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Password Case Sensitivity Check",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "sahej@123",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "Email With Plus Alias",
+      "email": "sahej+test@knovonconsulting.com",
+      "password": "Sahej@123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Password With Only Special Characters",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "!@#$%^&*",
+      "expectedStatus": 401
+    },
+    {
+      "scenario": "Multiple Failed Attempts (Rate Limiting)",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "WrongPass123",
+      "expectedStatus": 200
+    },
+    {
+      "scenario": "Locked/Inactive Account",
+      "email": "locked.user@knovonconsulting.com",
+      "password": "Locked@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Empty Request Body",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Malformed JSON",
+      "rawRequest": "{ \"email\": \"sahej.mohanty@knovonconsulting.com\", \"password\": \"Sahej@123\"} ",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Whitespace Only Email",
+      "email": "   ",
+      "password": "Sahej@123",
+      "expectedStatus": 400
+    },
+    {
+      "scenario": "Whitespace Only Password",
+      "email": "sahej.mohanty@knovonconsulting.com",
+      "password": "   ",
+      "expectedStatus": 401
+    }
+  ]
+}
