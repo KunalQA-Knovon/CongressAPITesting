@@ -17,6 +17,7 @@
         <jacksondatabindVersion>2.17.2</jacksondatabindVersion>
         <alluretestngVersion>2.24.0</alluretestngVersion>
         <jsonVersion>20250517</jsonVersion>
+        <extentreportsVersion>5.0.9</extentreportsVersion>
     </properties>
 
     <dependencies>
@@ -41,6 +42,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${alluretestngVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreportsVersion}</version>
         </dependency>
 
         <dependency>

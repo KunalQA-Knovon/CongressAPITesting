@@ -1,23 +1,28 @@
 package com.api.tests;
 
 import com.api.utils.Configuration.testDataReader;
-import io.restassured.http.ContentType;
+import com.api.utils.ResponseModels;
+import com.report.config.ExtentManager;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class RunAllPossibleLoginScenarioTest extends BaseTest {
+public class LoginScenarioTest extends BaseTest {
     protected static String accessToken;
+    SoftAssert softAssert = new SoftAssert();
 
     @Test(priority = 0)
-    public void runAllLoginTests() throws Exception {
+    public void LoginTests() throws Exception {
         String filePath = "src/test/resources/loginData.json";
         String arrayName = "logins";
         JSONArray tests = testDataReader.extractJsonData(filePath, arrayName);
+        String requestBody;
 
         for (int i = 0; i < tests.length(); i++) {
             JSONObject testCase = tests.getJSONObject(i);
@@ -28,8 +33,9 @@ public class RunAllPossibleLoginScenarioTest extends BaseTest {
             System.out.println("\n==============================");
             System.out.println("Running Test: " + scenario);
             System.out.println("==============================");
+            ExtentManager.setTest(
+                    ExtentManager.getReporter().createTest("Scenario: " + scenario));
 
-            String requestBody;
 
             // Handle raw or malformed test cases
             if (testCase.has("rawRequest")) {
@@ -46,35 +52,40 @@ public class RunAllPossibleLoginScenarioTest extends BaseTest {
                 }
                 requestBody = body.toString();
             }
-
             System.out.println("Request Body: " + requestBody);
-
+            ExtentManager.getTest().info("Request Body: <pre>" + requestBody + "</pre>");
             try {
-                Response response = given()
-                        .contentType(ContentType.JSON)
-                        .body(requestBody)
-                        .when()
-                        .post("login/") // 🔹 Replace with your endpoint
-                        .then()
-                        .log().all()
-                        .statusCode(expectedStatus)
-                        .extract().response();
+                Response response = ResponseModels.loginRequest(requestBody, "login/");
+                int actualStatusCode = response.getStatusCode();
+                String responseBody = response.getBody().asPrettyString();
 
-                // ✅ Only check token fields when login is successful
-                if (expectedStatus == 200) {
+                ExtentManager.getTest().info("Response Body: <pre>" + responseBody + "</pre>");
+                ExtentManager.getTest().info("Actual Status: <pre>" + actualStatusCode+"</pre>");
+                ExtentManager.getTest().info("Expected Status: <pre>" + expectedStatus+"</pre>");
+
+                if (actualStatusCode == 200) {
                     response.then()
                             .body("access_token", notNullValue())
                             .body("refresh_token", notNullValue())
                             .body("is_active", equalTo(true));
 
                     accessToken = response.path("access_token");
-                    System.out.println("✅ Access Token saved: " + accessToken);
+                    ExtentManager.getTest().pass("Access Token: <pre>" +"Bearer "+ accessToken + "</pre>");
+                    System.out.println("Access Token saved: " + accessToken);
                 }
+                if (actualStatusCode == expectedStatus) {
+                    ExtentManager.getTest().pass("Test Passed: Expected = Actual (" + expectedStatus + ")");
+                } else {
+                    ExtentManager.getTest().fail("Test Failed: Expected " + expectedStatus + " but got " + actualStatusCode);
+                }
+                softAssert.assertEquals(actualStatusCode, expectedStatus, "Scenario Failed: " + scenario);
 
-            } catch (AssertionError e) {
-                System.out.println("❌ Assertion failed for: " + scenario);
-                System.out.println(e.getMessage());
+            } catch (Exception ex) {
+                ExtentManager.getTest().fail("Exception: " + ex.getMessage());
+                // mark failure but continue
+                softAssert.fail("Scenario " + scenario + " threw exception: " + ex.getMessage());
             }
         }
+        softAssert.assertAll();
     }
 }
