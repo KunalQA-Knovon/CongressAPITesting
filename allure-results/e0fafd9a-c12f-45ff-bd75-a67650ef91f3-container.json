@@ -1,0 +1,1 @@
+{"uuid":"e0fafd9a-c12f-45ff-bd75-a67650ef91f3","name":"com.api.tests.RunAllPossibleLoginScenarioTest","children":["37d866d8-d20e-4086-b2e0-b3c7d794b7d1"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1756277694416,"stop":1756277695125}],"afters":[],"start":1756277694362,"stop":1756277736279}

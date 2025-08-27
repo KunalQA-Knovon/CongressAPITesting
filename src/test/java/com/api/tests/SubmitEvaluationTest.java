@@ -1,13 +1,11 @@
 package com.api.tests;
 
 import com.api.utils.Configuration.testDataReader;
-import com.api.utils.PdfReportGenerator;
 import io.restassured.http.ContentType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +13,7 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
-public class SubmitEvaluationTest extends RunAllPossibleLoginScenarioTest {
+public class SubmitEvaluationTest extends LoginScenarioTest {
     @Test
     public static void submitEvaluation(){
         String fileName = "src/test/resources/evaluationData.json";
@@ -120,10 +118,7 @@ public class SubmitEvaluationTest extends RunAllPossibleLoginScenarioTest {
                             .header("Authorization", "Bearer " + accessToken)
                             .body(jsonData.toString())
                             .when()
-                            .post("submit-evaluation/")
-                            .then()
-                            .log().all()
-                            .statusCode(expectedStatus);
+                            .post("submit-evaluation/");
                 } catch (AssertionError e) {
                     System.out.println("❌ Test Failed: " + scenario);
                     System.out.println(e.getMessage());

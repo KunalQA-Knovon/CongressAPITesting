@@ -2,9 +2,7 @@ package com.api.tests;
 
 import org.testng.annotations.Test;
 
-import static com.api.tests.RunAllPossibleLoginScenarioTest.accessToken;
-
-public class UserTests extends  RunAllPossibleLoginScenarioTest {
+public class UserTests extends LoginScenarioTest {
 
     @Test
     public void token(){
