@@ -1,0 +1,30 @@
+name: Rest Assured API Tests
+
+on:
+  push:        # Run tests on every push to main branch
+    branches: [ "main" ]
+  pull_request: # Run tests on every Pull Request to main branch
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # Use GitHub’s Ubuntu VM
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3   # Gets your repo code
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'   # Java distribution
+          java-version: '11'        # Java version
+
+      - name: Build & Run Tests
+        run: mvn clean test   # Runs Rest Assured tests via Maven
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: target/surefire-reports
