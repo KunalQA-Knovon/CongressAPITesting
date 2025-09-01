@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.given;
 
 public class SubmitEvaluationTest extends LoginScenarioTest {
     @Test
-    public static void submitEvaluation(){
+    public static void Submit_Evaluation(){
         String fileName = "src/test/resources/evaluationData.json";
         String arrayName = "evaluationData";
         JSONArray jsonObject = testDataReader.extractJsonData(fileName, arrayName);

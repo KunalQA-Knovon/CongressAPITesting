@@ -18,7 +18,7 @@ public class LoginScenarioTest extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     @Test(priority = 0)
-    public void LoginTests() throws Exception {
+    public void Login() throws Exception {
         String filePath = "src/test/resources/loginData.json";
         String arrayName = "logins";
         JSONArray tests = testDataReader.extractJsonData(filePath, arrayName);
@@ -58,7 +58,7 @@ public class LoginScenarioTest extends BaseTest {
                 Response response = ResponseModels.loginRequest(requestBody, "login/");
                 int actualStatusCode = response.getStatusCode();
                 String responseBody = response.getBody().asPrettyString();
-
+                System.out.println("Response Body:" + responseBody);
                 ExtentManager.getTest().info("Response Body: <pre>" + responseBody + "</pre>");
                 ExtentManager.getTest().info("Actual Status: <pre>" + actualStatusCode+"</pre>");
                 ExtentManager.getTest().info("Expected Status: <pre>" + expectedStatus+"</pre>");

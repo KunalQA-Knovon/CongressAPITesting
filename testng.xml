@@ -6,8 +6,8 @@
     </listeners>
     <test verbose="2" preserve-order="true" name="C:/Users/user/Downloads/CongressApiTesting">
         <classes>
-           <class name="com.api.tests.LoginScenarioTest"/>
-<!--            <class name="com.api.tests.SubmitEvaluationTest"/>-->
+            <class name="com.api.tests.LoginScenarioTest"/>
+            <class name="com.api.tests.ByHeaderTest"/>
         </classes>
 
     </test>

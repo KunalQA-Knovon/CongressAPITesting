@@ -26,6 +26,13 @@
             <artifactId>rest-assured</artifactId>
             <version>${restAssuredVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.testng</groupId>
@@ -43,6 +50,7 @@
             <artifactId>allure-testng</artifactId>
             <version>${alluretestngVersion}</version>
         </dependency>
+
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
@@ -55,5 +63,19 @@
             <version>${jsonVersion}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
