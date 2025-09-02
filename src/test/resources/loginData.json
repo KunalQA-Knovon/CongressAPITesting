@@ -123,7 +123,7 @@
       "scenario": "Locked/Inactive Account",
       "email": "locked.user@knovonconsulting.com",
       "password": "Locked@123",
-      "expectedStatus": 400
+      "expectedStatus": 401
     },
     {
       "scenario": "Empty Request Body",
