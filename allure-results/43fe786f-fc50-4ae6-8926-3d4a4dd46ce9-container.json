@@ -1,0 +1,1 @@
+{"uuid":"43fe786f-fc50-4ae6-8926-3d4a4dd46ce9","name":"com.api.tests.EvaluationsHistoryTest","children":["9e85376b-3cf3-4ae2-a2bf-1b83546ed5d5"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1756717155902,"stop":1756717155904}],"afters":[],"start":1756717113049,"stop":1756717158150}
